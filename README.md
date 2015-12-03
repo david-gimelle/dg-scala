@@ -1,2 +1,1 @@
-# dg-scala
-David§
+Some scala stuff
