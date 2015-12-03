@@ -1,4 +1,4 @@
-package com.davidgimelle.scala.credit.suisse
+package com.davidgimelle.scalatest.maven.template
 
 import com.davidgimelle.scalatest.maven.template.domain.example.Pet
 import org.junit.runner.RunWith

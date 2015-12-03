@@ -1,4 +1,4 @@
-package com.davidgimelle.scala.credit.suisse
+package com.davidgimelle.scalatest.maven.template
 
 import java.util
 import java.util.EmptyStackException
