@@ -1,4 +1,4 @@
-package stepdefs
+package com.dgdevx.sbt.cucumber.example.stepdefs
 
 import cucumber.api.junit.Cucumber
 import cucumber.api.junit.Cucumber.Options
@@ -6,8 +6,8 @@ import org.junit.runner.RunWith
 
 @RunWith(classOf[Cucumber])
 @Options(
-  features = Array("src/test/resources/features"),
-  glue = Array("stepdefs"),
+  features = Array("src/test/resources/features/"),
+  glue = Array("com.dgdevx.sbt.cucumber.example.stepdefs"),
   format = Array("pretty", "html:target/cucumber-report"),
   tags = Array("@wip")
 )

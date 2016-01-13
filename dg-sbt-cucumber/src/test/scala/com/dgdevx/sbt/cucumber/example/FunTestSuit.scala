@@ -1,8 +1,9 @@
+package com.dgdevx.sbt.cucumber.example
+
 /**
  * @author  davidgimelle on 07/01/2016.
  */
 
-import com.sbtco.sandbox.JustForTesting
 import org.scalatest.FunSuite
 
 class SetSuite extends FunSuite {

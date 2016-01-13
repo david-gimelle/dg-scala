@@ -1,10 +1,8 @@
-package stepdefs
+package com.dgdevx.sbt.cucumber.example.stepdefs
 
-import com.sbtco.sandbox.JustForTesting
-import cucumber.api.PendingException
-import cucumber.api.scala.{ScalaDsl, EN}
+import com.dgdevx.sbt.cucumber.example.JustForTesting
+import cucumber.api.scala.{EN, ScalaDsl}
 import org.scalatest.{FunSuite, Matchers}
-import org.scalatest.FunSuite
 
 
 /**

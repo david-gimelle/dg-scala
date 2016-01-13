@@ -1,4 +1,5 @@
-package com.sbtco.sandbox
+package com.dgdevx.sbt.cucumber.example
+
 /**
  * @author  davidgimelle on 08/01/2016.
  */
