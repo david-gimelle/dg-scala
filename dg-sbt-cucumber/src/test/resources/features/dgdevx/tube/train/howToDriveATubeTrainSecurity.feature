@@ -6,21 +6,21 @@ Feature: Underground tube train safety
 
   @wip
   Scenario: Can not start a train with open doors
-    Given I have control of the train
+    Given "Marco" is the driver
     And the doors are open
     When I start the train
     Then the train doesn't move
 
   @wip
   Scenario: Can not open the doors of a moving train
-    Given I have control of the train
+    Given "Marco" is the driver
     And the train is moving
     When I push the open door button
     Then the train doesn't open its doors
 
   @wip
   Scenario: Train can stop automatically if the driver dies
-    Given I have control of the train
+    Given "Marco" is the driver
     And the doors are closed
     And the train is moving
     When I stop to push the dead man's handle
@@ -28,7 +28,7 @@ Feature: Underground tube train safety
 
   @wip
   Scenario: Break the train
-    Given I have control of the train
+    Given "Marco" is the driver
     When I push the break
     Then the train stops immediately
 

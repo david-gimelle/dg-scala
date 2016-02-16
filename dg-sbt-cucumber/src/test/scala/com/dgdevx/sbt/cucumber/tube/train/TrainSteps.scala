@@ -8,10 +8,17 @@ import org.scalatest.Matchers
  */
 class TrainSteps  extends ScalaDsl with EN with Matchers{
 
+
+
   Given("""^I have control of the train$"""){ () =>
   }
 
+  Given("""^"(.*?)" is the driver$"""){ (driverName:String) =>
+    Train.driveBy(driverName)
+  }
+
   Then("""^the train makes a beep$"""){ () =>
+    Train.beep()
   }
 
 

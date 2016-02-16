@@ -1,4 +1,4 @@
-package com.dgdevx.sbt.cucumber.example.stepdefs
+package com.dgdevx.sbt.cucumber
 
 import cucumber.api.junit.Cucumber
 import cucumber.api.junit.Cucumber.Options
