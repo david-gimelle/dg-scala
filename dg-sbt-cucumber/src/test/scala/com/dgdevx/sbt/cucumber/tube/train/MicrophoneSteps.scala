@@ -9,10 +9,12 @@ import org.scalatest.Matchers
 class MicrophoneSteps  extends ScalaDsl with EN with Matchers{
 
 
-  When("""^I say to the microphone "(.*?)"$"""){ (arg0:String) =>
+  When("""^I say to the microphone "(.*?)"$"""){ (message:String) =>
+    Train.informPassengers(message)
   }
 
-  Then("""^the passengers hear "(.*?)"$"""){ (arg0:String) =>
+  Then("""^the passengers hear "(.*?)"$"""){ (message:String) =>
+    assert(Train.messageToPassenger===message)
   }
 
 

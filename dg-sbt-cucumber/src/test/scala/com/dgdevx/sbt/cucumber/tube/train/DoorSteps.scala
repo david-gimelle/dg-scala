@@ -8,38 +8,22 @@ import org.scalatest.Matchers
  */
 class DoorSteps extends ScalaDsl with EN with Matchers {
 
-  When( """^I push the close door button$""") { () =>
-
-    Train.closeDoor();
-  }
-
   When("""^"(.*?)" closes the doors$"""){ (driverName:String) =>
-    //TODO check it is marco in closeDoor function
-    Train.closeDoor();
+    Train.orderToCloseDoors(driverName)
   }
 
-
-  When("""^Marco closes the doors$"""){ () =>
-
+  Then("""^the train's doors are closed$"""){ () =>
+    assert(Train.doorClosed);
   }
 
-  When( """^I push the open door button$""") { () =>
+  When("""^"(.*?)" opens the doors$"""){ (driverName:String) =>
+    Train.orderToOpenDoors(driverName)
   }
 
-  Then( """^the train closes its doors$""") { () =>
+  Then( """^the train's doors are opened$""") { () =>
+    assert(!Train.doorClosed)
   }
 
-  Then( """^the train opens its doors$""") { () =>
-  }
-
-  Then( """^the train doesn't open its doors$""") { () =>
-  }
-
-  Given( """^the doors are closed$""") { () =>
-  }
-
-  Given( """^the doors are open$""") { () =>
-  }
 
 
 }

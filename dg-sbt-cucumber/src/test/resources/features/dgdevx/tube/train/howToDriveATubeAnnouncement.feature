@@ -5,12 +5,6 @@ Feature: Underground tube train announcement
   So they could know why my train is late
 
   @wip
-  Scenario: Can inform passengers about stop skipped
-    Given "Marco" is the driver
-    When I say to the microphone "No stop at Tottenham court road until late december"
-    Then the passengers hear "No stop at trrrrsggfffs til late zziipppgrrr"
-
-  @wip
   Scenario: Can inform passenger about Signal Failure
     Given "Marco" is the driver
     When I say to the microphone "Line suspended because Signal Failure"
