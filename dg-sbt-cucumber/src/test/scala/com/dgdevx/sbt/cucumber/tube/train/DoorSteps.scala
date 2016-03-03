@@ -24,6 +24,4 @@ class DoorSteps extends ScalaDsl with EN with Matchers {
     assert(!Train.doorClosed)
   }
 
-
-
 }

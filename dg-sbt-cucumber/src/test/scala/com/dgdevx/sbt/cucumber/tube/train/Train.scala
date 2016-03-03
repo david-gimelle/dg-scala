@@ -1,6 +1,19 @@
 package com.dgdevx.sbt.cucumber.tube.train
 
+
+
 object Train {
+
+  //TODO create a context and put some Trains in it, instead have only one unic train
+  //TODO what about case class
+  //TODO what about cake pattern with traits
+  var stopImmediately = false
+  var stopGently = false
+  var doorClosed = true
+  var currentDriverName = "noDriver"
+  var currentSpeed = 0
+  var messageToPassenger = ""
+
   def pushTheBrake() = {
     logMessage("!!> Push the break!")
     stopImmediatly()
@@ -11,9 +24,9 @@ object Train {
     stopImmediatly()
   }
 
-  def stopImmediatly()= {
+  def stopImmediatly() = {
     stopGently = false
-    stopImmedialty = true
+    stopImmediately = true
     currentSpeed = 0
     logMessage("!!> Emergency stop!!!")
   }
@@ -22,13 +35,6 @@ object Train {
     messageToPassenger = message
     logMessage("((( " + message + " )))")
   }
-
-  var stopImmedialty=false
-  var stopGently = false
-  var doorClosed = true
-  var currentDriverName = "noDriver"
-  var currentSpeed = 0
-  var messageToPassenger = ""
 
   def pushDeadManTo(driverName: String, deadLevel: Int) = {
     //TODO refactor this with a function in arg at least
@@ -84,8 +90,12 @@ object Train {
     stopGently
   }
 
+  def hasStopImmediately(): Boolean = {
+    stopImmediately
+  }
+
   def moveAt(newSpeed: Int): Any = {
-    stopImmedialty=false
+    stopImmediately = false
     if (doorClosed) {
       if (newSpeed < currentSpeed && (newSpeed == 0)) {
         stopGently = true
@@ -102,9 +112,8 @@ object Train {
     }
   }
 
-
   def logMessage(message: String) = {
-    System.out.println("\n" + message)
+    println("\n" + message)
   }
 
   def beep(): Unit = {

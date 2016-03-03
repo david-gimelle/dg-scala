@@ -13,7 +13,7 @@ class StopSteps  extends ScalaDsl with EN with Matchers{
   }
 
   Then("""^the train stops immediately$"""){ () =>
-    assert(Train.stopImmedialty)
+    assert(Train.hasStopImmediately())
   }
 
   When("""^I push the brake$"""){ () =>
