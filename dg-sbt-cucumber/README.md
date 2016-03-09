@@ -21,6 +21,10 @@ Notable Scala Articles
 - Option: http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html
 
 Play Article
+- Intro to play by Linkedin dev  https://www.youtube.com/watch?v=8z3h4Uv9YbE 
+- new application without activator https://www.playframework.com/documentation/2.4.x/NewApplication
+- Play scala tuto: http://blog.knoldus.com/2014/10/04/tutorial-1/ 
+- Play intro, video first CRUD https://www.youtube.com/watch?v=eNCerkVyQdc&feature=youtu.be 
 http://www.ybrikman.com/writing/2014/03/10/the-ultimate-guide-to-getting-started/
 https://www.playframework.com/documentation/2.4.x/Tutorials
 https://www.lightbend.com/activator/template/modern-web-template
