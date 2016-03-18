@@ -29,6 +29,7 @@ Play Article
 - Slick 3: http://slick.typesafe.com/doc/3.0.0/gettingstarted.html
 - Hello Slick 3: https://www.lightbend.com/activator/template/hello-slick-3.0
 - Query with Slick: http://slick.typesafe.com/doc/3.0.0/queries.html 
+- Slick pooling: http://fernandezpablo85.github.io/2013/04/07/slick_connection_pooling.html 
 http://www.ybrikman.com/writing/2014/03/10/the-ultimate-guide-to-getting-started/
 https://www.playframework.com/documentation/2.4.x/Tutorials
 https://www.lightbend.com/activator/template/modern-web-template

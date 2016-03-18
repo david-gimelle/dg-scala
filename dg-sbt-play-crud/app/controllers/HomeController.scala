@@ -37,6 +37,51 @@ class HomeController @Inject() extends Controller {
     )(Person.apply)(Person.unapply)
   }
 
+  def getPersons = Action {
+    println("Get Persons (get People! )")
+
+    // ??? HOW TO SHARE THIS DATABASE between 2 requests
+
+    val db = Database.forConfig("h2mem1")
+
+    val res = "Some People!"
+    try {
+
+      // The query interface for the PERSON table
+      val people: TableQuery[PersonTable] = TableQuery[PersonTable]
+
+      val setupAction: DBIO[Unit] = DBIO.seq(
+        // Create the schema
+        (people.schema).create
+      )
+
+      val setupFuture: Future[Unit] = db.run( setupAction)
+      //TODO do this with some map function instead of plain query ...
+      val f = setupFuture.flatMap { _ =>
+
+        /* Manual SQL / String Interpolation */
+
+        // A value to insert into the statement
+        val state = "CA"
+
+        // Construct a SQL statement manually with an interpolated value
+        val plainQuery = sql"select PERSON_FIRSTNAME, PERSON_LASTNAME from PERSON".as[(String,String)]
+
+        println("Generated SQL for plain query:\n" + plainQuery.statements)
+
+        // Execute the query
+        db.run(plainQuery).map(println)
+
+      }
+      Await.result(f, Duration.Inf)
+
+
+    }
+    finally db.close()
+
+    Ok(res)
+  }
+
   def addPerson = Action { implicit request =>
     val person = personForm.bindFromRequest.get
     println("A PERSON.firstName>"+person.firstName +" lastName>"+person.lastName)
@@ -49,7 +94,7 @@ class HomeController @Inject() extends Controller {
 
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Create the schema
-        (people.schema).create,
+        (people.schema).create ,
 
         // Insert a person
         people += (150, person.firstName, person.lastName)
@@ -108,7 +153,7 @@ class HomeController @Inject() extends Controller {
 
           /* Delete */
 
-          // Construct a delete query 
+          // Construct a delete query
           val deleteQuery: Query[PersonTable,(Long, String, String), Seq] =
             people.filter(_.lastName === "notlucky")
 
@@ -148,7 +193,6 @@ class HomeController @Inject() extends Controller {
 
 
 
-    //DB.save(person)
     Redirect(routes.HomeController.index())
   }
 
