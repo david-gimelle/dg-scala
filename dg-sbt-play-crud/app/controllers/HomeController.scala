@@ -32,35 +32,37 @@ class HomeController @Inject() extends Controller {
 
   val  personForm: Form[Person] = Form {
     mapping(
-      "name" -> text
+      "firstName" -> text,
+      "lastName" -> text
     )(Person.apply)(Person.unapply)
   }
 
   def addPerson = Action { implicit request =>
     val person = personForm.bindFromRequest.get
-    println("A PERSON.name>"+person.name)
+    println("A PERSON.firstName>"+person.firstName +" lastName>"+person.lastName)
 
     val db = Database.forConfig("h2mem1")
     try {
 
-      // The query interface for the Suppliers table
-      val suppliers: TableQuery[PersonTable] = TableQuery[PersonTable]
+      // The query interface for the PERSON table
+      val people: TableQuery[PersonTable] = TableQuery[PersonTable]
 
       val setupAction: DBIO[Unit] = DBIO.seq(
-        // Create the schema by combining the DDLs for the Suppliers and Coffees
-        // tables using the query interfaces
-        (suppliers.schema).create,
+        // Create the schema
+        (people.schema).create,
 
-        // Insert some suppliers
-        suppliers += (150, person.name)
+        // Insert a person
+        people += (150, person.firstName, person.lastName)
       )
 
       val setupFuture: Future[Unit] = db.run( setupAction)
       val f = setupFuture.flatMap { _ =>
 
-        // Insert some coffees (using JDBC's batch insert feature)
-        val insertAction: DBIO[Option[Int]] = suppliers ++= Seq (
-          (System.nanoTime(),"Bob")
+        // Insert some random person (using JDBC's batch insert feature)
+        val insertAction: DBIO[Option[Int]] = people ++= Seq (
+          (System.nanoTime(),"Bob","Dvorak"),
+          (System.nanoTime()+1,"Bob2","Zorglub"),
+          (System.nanoTime()+2,"Bob3","notlucky")
         )
 
         val insertAndPrintAction: DBIO[Unit] = insertAction.map { coffeesInsertResult =>
@@ -70,20 +72,60 @@ class HomeController @Inject() extends Controller {
           }
         }
 
-        val allSuppliersAction: DBIO[Seq[(Long, String)]] =
-          suppliers.result
+        val allPeopleAction: DBIO[Seq[(Long, String, String)]] =
+          people.result
 
-        val combinedAction: DBIO[Seq[(Long, String)]] =
-          insertAndPrintAction >> allSuppliersAction
+        val combinedAction: DBIO[Seq[(Long, String, String)]] =
+          insertAndPrintAction >> allPeopleAction
 
-        val combinedFuture: Future[Seq[(Long, String)]] =
+        val combinedFuture: Future[Seq[(Long, String, String)]] =
           db.run(combinedAction)
 
-        combinedFuture.map { allSuppliers =>
-          allSuppliers.foreach(println)
+        combinedFuture.map { allPeople =>
+          allPeople.foreach(println)
         }
 
       }.flatMap { _ =>
+
+        /* Update */
+
+        // Construct an update query with the firstName column being the one to update
+        val updateQuery: Query[Rep[String], String, Seq] = people.filter(_.lastName === person.lastName).map(_.firstName)
+
+        val updateAction: DBIO[Int] = updateQuery.update("JOE")
+
+        // Print the SQL for the Person update query
+        println("Generated SQL for Person update:\n" + updateQuery.updateStatement)
+
+        // Perform the update
+        db.run(updateAction.map { numUpdatedRows =>
+          println(s"Updated $numUpdatedRows rows")
+        })
+
+      }
+
+        .flatMap { _ =>
+
+          /* Delete */
+
+          // Construct a delete query 
+          val deleteQuery: Query[PersonTable,(Long, String, String), Seq] =
+            people.filter(_.lastName === "notlucky")
+
+          val deleteAction = deleteQuery.delete
+
+          // Print the SQL for the Coffees delete query
+          println("Generated SQL for Coffees delete:\n" + deleteAction.statements)
+
+          // Perform the delete
+          db.run(deleteAction).map { numDeletedRows =>
+            println(s"Deleted $numDeletedRows rows")
+          }
+
+        }
+
+
+        .flatMap { _ =>
 
         /* Manual SQL / String Interpolation */
 
@@ -91,7 +133,7 @@ class HomeController @Inject() extends Controller {
         val state = "CA"
 
         // Construct a SQL statement manually with an interpolated value
-        val plainQuery = sql"select PERSON_NAME from PERSON".as[String]
+        val plainQuery = sql"select PERSON_FIRSTNAME, PERSON_LASTNAME from PERSON".as[(String,String)]
 
         println("Generated SQL for plain query:\n" + plainQuery.statements)
 
