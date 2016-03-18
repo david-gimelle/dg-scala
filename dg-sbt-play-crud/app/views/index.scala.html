@@ -15,6 +15,9 @@
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    @play20.welcome(message, style = "Scala")
+    <form action="@routes.HomeController.addPerson()" method="post">
+      <input name="name" type="text">
+     <button> Add Person</button>
+    </form>
 
 }
