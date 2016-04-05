@@ -15,6 +15,7 @@ Notable Scala Articles
 - Thin cake pattern: https://dzone.com/articles/using-scala-traits-modules-or
 - Cake Pattern: http://jonasboner.com/real-world-scala-dependency-injection-di/
 - Cake pattern self type annotation: http://www.andrewrollins.com/2014/08/07/scala-cake-pattern-self-type-annotations-vs-inheritance/
+- Cake pattern again!: http://www.cakesolutions.net/teamblogs/2011/12/19/cake-pattern-in-depth
 - Sbt can cucumber: http://rubygemtsl.com/2014/08/01/scala-sbt-cucumber-and-selenium-webdriver/
 - Cucumber and play: http://www.sebnozzi.com/82/cucumber-and-play/
 - Scala worksheet: https://confluence.jetbrains.com/display/IntelliJIDEA/Working+with+Scala+Worksheet
@@ -29,7 +30,11 @@ Play Article
 - Slick 3: http://slick.typesafe.com/doc/3.0.0/gettingstarted.html
 - Hello Slick 3: https://www.lightbend.com/activator/template/hello-slick-3.0
 - Query with Slick: http://slick.typesafe.com/doc/3.0.0/queries.html 
+- more slick: http://stackoverflow.com/questions/30036964/check-table-existance-in-slick-3-0 
 - Slick pooling: http://fernandezpablo85.github.io/2013/04/07/slick_connection_pooling.html 
+- Trait: https://gleichmann.wordpress.com/2009/10/21/scala-in-practice-composing-traits-lego-style/
+- DI: http://stackoverflow.com/questions/23225124/how-to-create-a-singleton-reference-in-playframework
+- McGuire: https://github.com/adamw/macwire 
 http://www.ybrikman.com/writing/2014/03/10/the-ultimate-guide-to-getting-started/
 https://www.playframework.com/documentation/2.4.x/Tutorials
 https://www.lightbend.com/activator/template/modern-web-template

@@ -18,7 +18,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * application's home page.
  */
 @Singleton
-class HomeController @Inject() extends Controller {
+class HomeController @Inject() extends Controller with DBtrait{
 
   /**
    * Create an Action to render an HTML page with a welcome message.
@@ -41,8 +41,9 @@ class HomeController @Inject() extends Controller {
     println("Get Persons (get People! )")
 
     // ??? HOW TO SHARE THIS DATABASE between 2 requests
+    // MOVE the database initialisation in the trait
 
-    val db = Database.forConfig("h2mem1")
+    val db = openDbCon()
 
     val res = "Some People!"
     try {
@@ -77,7 +78,7 @@ class HomeController @Inject() extends Controller {
 
 
     }
-    finally db.close()
+    finally closeDbCon()
 
     Ok(res)
   }
@@ -86,7 +87,18 @@ class HomeController @Inject() extends Controller {
     val person = personForm.bindFromRequest.get
     println("A PERSON.firstName>"+person.firstName +" lastName>"+person.lastName)
 
-    val db = Database.forConfig("h2mem1")
+    val db = openDbCon()
+
+    /////
+
+
+
+
+
+    /////
+
+
+
     try {
 
       // The query interface for the PERSON table
@@ -94,10 +106,10 @@ class HomeController @Inject() extends Controller {
 
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Create the schema
-        (people.schema).create ,
+       // (people.schema).create , // move this up to no create the schema 2 times ... ?
 
         // Insert a person
-        people += (150, person.firstName, person.lastName)
+        people += (System.nanoTime(), person.firstName, person.lastName)
       )
 
       val setupFuture: Future[Unit] = db.run( setupAction)
@@ -189,7 +201,7 @@ class HomeController @Inject() extends Controller {
       Await.result(f, Duration.Inf)
 
     }
-    finally db.close()
+    finally closeDbCon()
 
 
 
