@@ -5,6 +5,7 @@ import models.{PersonTable, Person}
 import play.api._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.libs.json.Json
 import play.api.mvc._
 import slick.backend.DatabasePublisher
 import slick.driver.H2Driver.api._
@@ -40,12 +41,10 @@ class HomeController @Inject() extends Controller with DBtrait{
   def getPersons = Action {
     println("Get Persons (get People! )")
 
-    // ??? HOW TO SHARE THIS DATABASE between 2 requests
-    // MOVE the database initialisation in the trait
-
     val db = openDbCon()
 
     val res = "Some People!"
+    var peopleList=""
     try {
 
       // The query interface for the PERSON table
@@ -53,7 +52,7 @@ class HomeController @Inject() extends Controller with DBtrait{
 
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Create the schema
-        (people.schema).create
+        //(people.schema).create
       )
 
       val setupFuture: Future[Unit] = db.run( setupAction)
@@ -71,16 +70,22 @@ class HomeController @Inject() extends Controller with DBtrait{
         println("Generated SQL for plain query:\n" + plainQuery.statements)
 
         // Execute the query
-        db.run(plainQuery).map(println)
+        println(db.run(plainQuery))
+        db.run(plainQuery).map(ve=>ve.map(te=>Person(te._1,te._2))).map(println)
+        db.run(plainQuery).map(ve=>ve.map(te=>Person(te._1,te._2)))
+
+        // It is a vector of person. How to put it in the ok(res) now ??
 
       }
       Await.result(f, Duration.Inf)
 
 
+
+      Ok(Json.toJson(f.value.get.get))
     }
     finally closeDbCon()
 
-    Ok(res)
+
   }
 
   def addPerson = Action { implicit request =>
@@ -89,25 +94,12 @@ class HomeController @Inject() extends Controller with DBtrait{
 
     val db = openDbCon()
 
-    /////
-
-
-
-
-
-    /////
-
-
-
     try {
 
       // The query interface for the PERSON table
       val people: TableQuery[PersonTable] = TableQuery[PersonTable]
 
       val setupAction: DBIO[Unit] = DBIO.seq(
-        // Create the schema
-       // (people.schema).create , // move this up to no create the schema 2 times ... ?
-
         // Insert a person
         people += (System.nanoTime(), person.firstName, person.lastName)
       )

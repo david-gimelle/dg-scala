@@ -8,9 +8,9 @@ import slick.lifted.{ProvenShape, ForeignKeyQuery}
   */
 class PersonTable(tag: Tag) extends Table[(Long, String, String)](tag, "PERSON") {
 
-  def id: Rep[Long] = column[Long]("PERSON_ID")
+  def id: Rep[Long] = column[Long]("PERSON_ID",O.PrimaryKey)
   def firstName: Rep[String] = column[String]("PERSON_FIRSTNAME")
-  def lastName: Rep[String] = column[String]("PERSON_LASTNAME",O.PrimaryKey)
+  def lastName: Rep[String] = column[String]("PERSON_LASTNAME")
 
   def * : ProvenShape[(Long, String, String)] = (id, firstName, lastName)
 
