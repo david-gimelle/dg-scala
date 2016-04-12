@@ -40,6 +40,8 @@ Play Article
 - Trait: https://gleichmann.wordpress.com/2009/10/21/scala-in-practice-composing-traits-lego-style/
 - DI: http://stackoverflow.com/questions/23225124/how-to-create-a-singleton-reference-in-playframework
 - McGuire: https://github.com/adamw/macwire 
+- Some scala example: https://bitbucket.org/nolife/
+- REST PLAY: https://www.lightbend.com/activator/template/simple-rest-scala
 http://www.ybrikman.com/writing/2014/03/10/the-ultimate-guide-to-getting-started/
 https://www.playframework.com/documentation/2.4.x/Tutorials
 https://www.lightbend.com/activator/template/modern-web-template
