@@ -27,6 +27,11 @@ Play Article
 - Play scala tuto: http://blog.knoldus.com/2014/10/04/tutorial-1/ 
 - Play intro, video first CRUD https://www.youtube.com/watch?v=eNCerkVyQdc&feature=youtu.be
 - Play slick: https://www.playframework.com/documentation/2.4.x/PlaySlick
+- Example play slick: https://github.com/playframework/playframework/tree/master/templates/play-scala-intro 
+- play-stick: https://github.com/playframework/play-slick
+- SBT_VERSION issue: https://github.com/playframework/playframework/issues/14
+- coffeescript: https://www.playframework.com/documentation/2.5.x/AssetsCoffeeScript
+- import jquery with coffescript: http://stackoverflow.com/questions/24851404/how-to-get-the-coffeescript-working-in-play-framework-2-3-1  
 - Slick 3: http://slick.typesafe.com/doc/3.0.0/gettingstarted.html
 - Hello Slick 3: https://www.lightbend.com/activator/template/hello-slick-3.0
 - Query with Slick: http://slick.typesafe.com/doc/3.0.0/queries.html 
