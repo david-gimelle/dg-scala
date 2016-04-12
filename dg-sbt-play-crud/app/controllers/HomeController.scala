@@ -38,17 +38,15 @@ class HomeController @Inject() extends Controller with DBtrait {
     )(Person.apply)(Person.unapply)
   }
 
+  val people: TableQuery[PersonTable] = TableQuery[PersonTable]
+
   def getPersons = Action {
 
     val db = openDbCon()
 
     try {
 
-      // The query interface for the PERSON table
-      val people: TableQuery[PersonTable] = TableQuery[PersonTable]
-
-      val setupAction: DBIO[Unit] = DBIO.seq(
-      )
+      val setupAction: DBIO[Unit] = DBIO.seq()
 
       val setupFuture: Future[Unit] = db.run(setupAction)
       val f = setupFuture.flatMap { _ =>
@@ -72,23 +70,14 @@ class HomeController @Inject() extends Controller with DBtrait {
     val db = openDbCon()
 
     try {
-
-      // The query interface for the PERSON table
-      val people: TableQuery[PersonTable] = TableQuery[PersonTable]
-
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Insert a person
         people +=(System.nanoTime(), person.firstName, person.lastName)
       )
-
       val setupFuture: Future[Unit] = db.run(setupAction)
-
       Await.result(setupFuture, Duration.Inf)
-
     }
     finally closeDbCon()
-
-
 
     Redirect(routes.HomeController.index())
   }
