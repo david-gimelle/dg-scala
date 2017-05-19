@@ -1,13 +1,8 @@
 package com.davidgimelle.scalatest.maven.template
 
 import com.davidgimelle.scalatest.maven.template.domain.example.Pet
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-
-
 import org.scalatest.WordSpec
 
-@RunWith(classOf[JUnitRunner])
 class ScalaWordSpecTest extends WordSpec {
 
   "A Set" when {

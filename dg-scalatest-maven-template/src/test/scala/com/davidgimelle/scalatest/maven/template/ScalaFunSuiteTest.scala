@@ -1,15 +1,12 @@
 package com.davidgimelle.scalatest.maven.template
 
 import com.davidgimelle.scalatest.maven.template.domain.example.Pet
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
 
 
 /**
  * @author  david-gimelle on 03/12/2015.
  */
-@RunWith(classOf[JUnitRunner])
 class ScalaFunSuiteTest extends FunSuite {
 
     test("An pet should have a name") {
